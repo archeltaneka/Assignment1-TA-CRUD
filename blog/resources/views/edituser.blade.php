@@ -17,6 +17,10 @@
           <td><input type='text' name='email' value='<?php echo $users[0]->email; ?>'></td>
         </tr>
         <tr>
+          <td>New Password</td>
+          <td><input type='password' name='password'></td>
+        </tr>
+        <tr>
           <td colspan='2'>
             <input type='submit' value='Update'>
         </tr>

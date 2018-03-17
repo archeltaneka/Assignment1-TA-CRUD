@@ -14,6 +14,7 @@ class UserController extends Controller
     $this->user = $user;
   }
 
+  // register form
   public function register(Request $request) {
     // echo $request->name;
     // echo " ";
@@ -36,6 +37,7 @@ class UserController extends Controller
     return "Failed";
   }
 
+  // show all records
   public function all() {
     $users = $this->user->all();
 
@@ -49,6 +51,7 @@ class UserController extends Controller
     return $user;
   }
 
+  // delete a user
   public function deleteUser($id) {
     $deletedUser = $this->user->find($id);
     $deletedUser->delete();
@@ -56,16 +59,19 @@ class UserController extends Controller
     echo "<a href='/all'>Click Here</a> to go back.";
   }
 
+  // show edituser form if want to edit
   public function show($id) {
     $users = DB::select('select * from users where id = ?',[$id]);
 
     return view('edituser', ['users'=>$users]);
   }
 
+  // update the record
   public function updateUser(Request $request, $id) {
     $newName = $request->input('name');
     $newEmail = $request->input('email');
-    DB::update('update users set name = ?, email = ? where id = ?', [$newName, $newEmail, $id]);
+    $newPassword = md5($request->password);
+    DB::update('update users set name = ?, email = ?, password = ? where id = ?', [$newName, $newEmail, $newPassword, $id]);
     echo 'Record updated successfully.<br>';
     echo '<a href="/all">Click Here</a> to go back.';
   }
